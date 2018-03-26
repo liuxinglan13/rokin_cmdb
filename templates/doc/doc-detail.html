@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block  title %}文档库{% endblock %}
+
+{% block page-content %}
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>资产信息</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index.html">主页</a>
+                </li>
+                <li>
+                    <a>文档管理</a>
+                </li>
+                <li class="active">
+                    <strong>知识库</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+
+
+    {{ doc_detail.doc_subject }}
+    {{ doc_detail.doc_body }}
+
+
+{% endblock %}
