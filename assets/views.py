@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from .models import assets
+from .models import *
 from django.views.generic import TemplateView, ListView, View, CreateView, UpdateView, DeleteView, DetailView,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .form import AssetForm
@@ -126,3 +126,9 @@ class AssetAllDel(LoginRequiredMixin,View):
                 print(1)
         finally:
             return HttpResponse(json.dumps(ret))
+
+# 二级联动 获取城市 测试
+def load_cities(request):
+    country_id = request.GET.get('country')
+    cities = City.objects.filter(country_id=country_id).order_by('name')
+    return render(request, 'assets/city_dropdown_list_options.html', {'cities': cities})

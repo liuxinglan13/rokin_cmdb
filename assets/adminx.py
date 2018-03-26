@@ -11,6 +11,13 @@ class DataCentsAdmin(object):
     list_display = ['data_center_list']
 
 
+class CountryAdmin(object):
+    list_display = ['name']
+
+class CityAdmin(object):
+    list_display = ['name', 'country']
+
+
 class GlobalSettings(object):
     site_title = "后台管理系统"
     site_footer = "后台管理系统"
@@ -24,3 +31,5 @@ xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
 xadmin.site.register(assets, AssetsAdmin)
 xadmin.site.register(data_centers, DataCentsAdmin)
+xadmin.site.register(Country, CountryAdmin)
+xadmin.site.register(City, CityAdmin)

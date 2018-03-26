@@ -54,9 +54,10 @@
                 </div>
                 <div class="ibox-content">
                     <form class="form-horizontal" action="#" method="post"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" id="personForm"
+                          data-cities-url="{% url 'assets:ajax_load_cities' %}" novalidate>
                         {% csrf_token %}
-                        {{form.media}}
+                        {{ form.media }}
                         {% if form.no_field_errors %}
                             <div class="alert alert-danger" style="margin: 20px auto 0px">
                                 {{ form.non_field_errors }}
@@ -66,8 +67,8 @@
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-0">
                                 <h3>基本</h3>
-                                 {% bootstrap_field form.assets_type layout="horizontal" %}
-                                 {% bootstrap_field form.hostname layout="horizontal" %}
+                                {% bootstrap_field form.assets_type layout="horizontal" %}
+                                {% bootstrap_field form.hostname layout="horizontal" %}
                                 {% bootstrap_field form.network_ip layout="horizontal" %}
                                 {% bootstrap_field form.assets_description layout="horizontal" %}
                                 {% bootstrap_field form.system layout="horizontal" %}
@@ -81,6 +82,8 @@
                             <div class="col-sm-10">
                                 <h3>其他</h3>
                                 {% bootstrap_field form.ps layout="horizontal" %}
+                                {% bootstrap_field form.country layout="horizontal" %}
+                                {% bootstrap_field form.city layout="horizontal" %}
 
                             </div>
                         </div>
@@ -112,7 +115,24 @@
         <script>
             $(document).ready(function () {
                 $('.select2').select2();
-            })
+            });
+
+
+            $("#id_country").change(function () {
+                var url = $("#personForm").attr("data-cities-url");
+                var countryId = $(this).val();
+
+                $.ajax({
+                    url: url,
+                    data: {
+                        'country': countryId
+                    },
+                    success: function (data) {
+                        $("#id_city").html(data);
+                    }
+                });
+
+            });
         </script>
 
 

@@ -1,6 +1,22 @@
 from django.db import models
 from django.urls import reverse
 
+
+# 二级联动测试 国家地区
+class Country(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
 # 资产
 class assets(models.Model):
     assets_type_choices = (
@@ -33,9 +49,9 @@ class assets(models.Model):
     # 数据中心
     data_center = models.ForeignKey(to="data_centers", to_field='id', on_delete=models.SET_NULL, null=True, blank=True,verbose_name='数据中心')
     # 机柜
-    cabinet = models.CharField(max_length=64, verbose_name='机柜', blank=True)
+    cabinet = models.CharField(default='', max_length=64, verbose_name='机柜', blank=True)
     # 位置
-    position = models.CharField(max_length=64, verbose_name='位置', blank=True)
+    position = models.CharField(default='', max_length=64, verbose_name='位置', blank=True)
     # 登录用户名
     user_name = models.CharField(default='', max_length=32, verbose_name='登录用户名', blank=True)
     # 登录密码
@@ -43,17 +59,21 @@ class assets(models.Model):
     # SN
     sn = models.CharField(max_length=64,verbose_name='序列号', blank=True)
     # CPU
-    cpu = models.CharField(max_length=64,verbose_name='CPU', blank=True)
+    cpu = models.CharField(default='', max_length=64,verbose_name='CPU', blank=True)
     # 内存
     memory = models.CharField(default=8, max_length=64, verbose_name='内存', blank=True)
     # 硬盘
     disk = models.CharField(default=300, max_length=256,verbose_name="硬盘", blank=True)
     # 备注
-    ps = models.TextField(max_length=1024,verbose_name="备注", blank=True)
+    ps = models.TextField(default='', max_length=1024,verbose_name="备注", blank=True)
     # 创建记录时间
     ctime= models.DateTimeField(auto_now_add=True,null=True,verbose_name='创建时间',blank=True)
     # 最后更新记录时间
     utime = models.DateTimeField(auto_now=True, null=True,verbose_name='更新时间',blank=True)
+
+    # 二级联动测试
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='国家')
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='地区')
 
 
     class  Meta:
@@ -84,3 +104,6 @@ class data_centers(models.Model):
 
     def __str__(self):
         return self.data_center_list
+
+
+
