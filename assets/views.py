@@ -29,9 +29,12 @@ class AssetDetail(DetailView):
     context_object_name = 'assets'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        portmaps = self.object.portmaps.all()
         context = {
             "asset_active": "active",
             "asset_list_active": "active",
+            "portmaps": portmaps
         }
         kwargs.update(context)
         return super(AssetDetail, self).get_context_data(**kwargs)
