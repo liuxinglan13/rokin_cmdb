@@ -37,7 +37,7 @@ class assets(models.Model):
     # 资产名称
     hostname = models.CharField(max_length=64, verbose_name='资产名称', null=True, blank=True)
     # IP地址
-    network_ip = models.GenericIPAddressField(verbose_name='IP地址')
+    network_ip = models.GenericIPAddressField(unique=True, verbose_name='IP地址')
     # 管理IP
     manage_ip = models.GenericIPAddressField(verbose_name='管理IP', null=True,blank=True)
     # 资产型号 硬件型号
@@ -113,10 +113,10 @@ class data_centers(models.Model):
 ## 端口映射详情表
 ########################################################################################################################
 class PortMap(models.Model):
+    in_ip = models.ForeignKey(assets, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='内网IP')
+    in_port = models.SmallIntegerField(verbose_name='内网端口')
     out_ip = models.GenericIPAddressField(verbose_name='外网IP')
     out_port = models.SmallIntegerField(verbose_name='外网端口')
-    in_ip = models.GenericIPAddressField(verbose_name='内网IP')
-    in_port = models.SmallIntegerField(verbose_name='内网端口')
     ask_user = models.CharField(max_length=32, verbose_name='申请人')
     use_for = models.CharField(max_length=128, verbose_name='用途')
     start_time = models.DateField(verbose_name='开始时间')
