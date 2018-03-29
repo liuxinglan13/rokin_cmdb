@@ -30,7 +30,7 @@
                     <span class="fa arrow"> </span></a>
                 <ul class="nav nav-second-level">
                     <li class="{{ asset_list_active }}"><a href="{% url 'assets:assets_list' %}">资产信息</a></li>
-                    <li class="{{ system_user_list_active }}"><a href="#">系统用户</a></li>
+                    <li class="{{ port_map_list_active }}"><a href="{% url 'assets:portmap_list' %}">端口映射</a></li>
                     <li class="{{ asset_config_list_active }}"><a href="#">资产配置</a></li>
                 </ul>
             </li>

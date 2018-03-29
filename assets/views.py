@@ -132,3 +132,19 @@ def load_cities(request):
     country_id = request.GET.get('country')
     cities = City.objects.filter(country_id=country_id).order_by('name')
     return render(request, 'assets/city_dropdown_list_options.html', {'cities': cities})
+
+
+
+### 端口映射列表视图
+class PortMapListView(ListView):
+    model = PortMap
+    context_object_name = 'portmap_list'
+    template_name = 'assets/portmap-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = {
+            "asset_active": "active",
+            "port_map_list_active": "active",
+        }
+        kwargs.update(context)
+        return super(PortMapListView, self).get_context_data(**kwargs)

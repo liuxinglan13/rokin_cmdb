@@ -17,6 +17,9 @@ class CountryAdmin(object):
 class CityAdmin(object):
     list_display = ['name', 'country']
 
+class PortMapAdmin(object):
+    list_display = ['in_ip', 'in_port', 'out_ip', 'out_port']
+
 
 class GlobalSettings(object):
     site_title = "后台管理系统"
@@ -33,3 +36,4 @@ xadmin.site.register(assets, AssetsAdmin)
 xadmin.site.register(data_centers, DataCentsAdmin)
 xadmin.site.register(Country, CountryAdmin)
 xadmin.site.register(City, CityAdmin)
+xadmin.site.register(PortMap, PortMapAdmin)

@@ -8,10 +8,10 @@
             <h2>资产信息</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="/index.html">主页</a>
+                    <a href="{% url 'assets:index' %}">主页</a>
                 </li>
                 <li>
-                    <a>资产管理</a>
+                    <a href="{% url 'assets:assets_list' %}">资产管理</a>
                 </li>
                 <li class="active">
                     <strong>资产信息</strong>

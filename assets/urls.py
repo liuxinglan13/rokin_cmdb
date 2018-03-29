@@ -11,6 +11,7 @@ urlpatterns = [
     path('asset-update-<int:pk>.html', views.AssetUpdate.as_view(), name='asset_update'),
     path('asset-all-del.html',views.AssetAllDel.as_view(),name='asset_all_del'),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
+    path('portmap/list.html', views.PortMapListView.as_view(), name='portmap_list')
 ]
 
 app_name = 'assets'

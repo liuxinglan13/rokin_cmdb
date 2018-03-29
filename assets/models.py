@@ -107,3 +107,26 @@ class data_centers(models.Model):
 
 
 
+
+
+########################################################################################################################
+## 端口映射详情表
+########################################################################################################################
+class PortMap(models.Model):
+    out_ip = models.GenericIPAddressField(verbose_name='外网IP')
+    out_port = models.SmallIntegerField(verbose_name='外网端口')
+    in_ip = models.GenericIPAddressField(verbose_name='内网IP')
+    in_port = models.SmallIntegerField(verbose_name='内网端口')
+    ask_user = models.CharField(max_length=32, verbose_name='申请人')
+    use_for = models.CharField(max_length=128, verbose_name='用途')
+    start_time = models.DateField(verbose_name='开始时间')
+    stop_time = models.DateField(verbose_name='结束时间')
+    ps = models.TextField(blank=True, null=True, verbose_name='备注')
+    add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = '端口映射表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "%s (%s)" % (self.in_ip, self.in_port)
