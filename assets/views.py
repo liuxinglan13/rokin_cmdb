@@ -151,3 +151,78 @@ class PortMapListView(ListView):
         }
         kwargs.update(context)
         return super(PortMapListView, self).get_context_data(**kwargs)
+
+
+
+
+
+########################################################################################################################
+## 添加映射视图
+########################################################################################################################
+class AddPortMapView(LoginRequiredMixin, View):
+    def post(self, request):
+        add_portmap_form = AddPortMapForm(request.POST)
+        if add_portmap_form.is_valid():
+            # 判断记录是否存在
+            if PortMap.objects.filter(in_ip=request.POST.get('in_ip')).filter(in_port=request.POST.get('in_port')):
+                return HttpResponse('{"status":"fail", "msg":"映射已存在！"}', content_type='application/json')
+
+            # 添加新记录
+            portmap = PortMap()
+            portmap.in_ip = request.POST.get('in_ip')
+            portmap.in_port = request.POST.get('in_port')
+            portmap.out_ip = request.POST.get('out_ip')
+            portmap.out_port = request.POST.get('out_port')
+            portmap.ask_user = request.POST.get('ask_user')
+            portmap.use_for = request.POST.get('use_for')
+            portmap.start_time = request.POST.get('start_time')
+            portmap.stop_time = request.POST.get('stop_time')
+            portmap.handling_user = request.user
+            portmap.ps = request.POST.get('ps')
+            portmap.save()
+
+            return HttpResponse('{"status":"success", "msg":"映射记录添加成功！"}', content_type='application/json')
+        else:
+            return HttpResponse('{"status":"fail", "msg":"映射记录添加失败！"}', content_type='application/json')
+
+
+########################################################################################################################
+## 删除映射视图
+########################################################################################################################
+class DeletePortMapView(LoginRequiredMixin, View):
+    def post(self, request, p_id):
+        try:
+            ports = PortMap.objects.get(id=int(p_id))
+            ports.delete()
+            return HttpResponse('{"status":"success", "msg":"映射记录删除成功！"}', content_type='application/json')
+        except Exception as e:
+            return HttpResponse('{"status":"fail", "msg":"映射记录删除失败！"}', content_type='application/json')
+
+
+########################################################################################################################
+## 修改映射视图
+########################################################################################################################
+class ChangePortMapView(LoginRequiredMixin, View):
+    def post(self, request, p_id):
+        change_portmap_form = AddPortMapForm(request.POST)
+        if change_portmap_form.is_valid():
+            # 删除旧的记录
+            old_ports = PortMap.objects.get(id=int(p_id))
+            old_user = old_ports.handling_user
+            old_ports.delete()
+            # 添加新的记录
+            portmap = PortMap()
+            portmap.in_ip = request.POST.get('in_ip')
+            portmap.in_port = request.POST.get('in_port')
+            portmap.out_ip = request.POST.get('out_ip')
+            portmap.out_port = request.POST.get('out_port')
+            portmap.ask_user = request.POST.get('ask_user')
+            portmap.use_for = request.POST.get('use_for')
+            portmap.start_time = request.POST.get('start_time')
+            portmap.stop_time = request.POST.get('stop_time')
+            portmap.handling_user = old_user
+            portmap.ps = request.POST.get('ps')
+            portmap.save()
+            return HttpResponse('{"status":"success", "msg":"映射记录修改成功！"}', content_type='application/json')
+        else:
+            return HttpResponse('{"status":"fail", "msg":"映射记录修改失败！"}', content_type='application/json')
