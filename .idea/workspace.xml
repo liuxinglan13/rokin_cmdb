@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a8ce7fd-631f-46fe-b7fa-278e085c5a7a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/urls.py" afterPath="$PROJECT_DIR$/assets/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/views.py" afterPath="$PROJECT_DIR$/assets/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/_nav.html" afterPath="$PROJECT_DIR$/templates/_nav.html" />
-    </list>
+    <list default="true" id="8a8ce7fd-631f-46fe-b7fa-278e085c5a7a" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/templates/assets/portmap_list.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -114,7 +109,7 @@
         <entry file="file://$PROJECT_DIR$/assets/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="17" column="79" lean-forward="true" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
+              <caret line="17" column="79" lean-forward="false" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -758,7 +753,7 @@
     <entry file="file://$PROJECT_DIR$/assets/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="79" lean-forward="true" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
+          <caret line="17" column="79" lean-forward="false" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -768,7 +763,7 @@
     <entry file="file://$PROJECT_DIR$/templates/assets/portmap_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
