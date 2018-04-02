@@ -70,6 +70,7 @@ class AssetAdd(CreateView):
 #         return super(AssetUpdate, self).get_context_data(**kwargs)
 
 
+# 更新资产信息
 class AssetUpdate(LoginRequiredMixin, View):
 
     def get(self, request, pk):
@@ -204,7 +205,6 @@ class ChangePortMapView(LoginRequiredMixin, View):
         if change_portmap_form.is_valid():
             # 删除旧的记录
             old_ports = PortMap.objects.get(id=int(p_id))
-            old_user = old_ports.handling_user
             old_ports.delete()
             # 添加新的记录
             portmap = PortMap()
@@ -216,7 +216,6 @@ class ChangePortMapView(LoginRequiredMixin, View):
             portmap.use_for = request.POST.get('use_for')
             portmap.start_time = request.POST.get('start_time')
             portmap.stop_time = request.POST.get('stop_time')
-            portmap.handling_user = old_user
             portmap.ps = request.POST.get('ps')
             portmap.save()
             return HttpResponse('{"status":"success", "msg":"映射记录修改成功！"}', content_type='application/json')
