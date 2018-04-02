@@ -5,8 +5,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .form import AssetForm, AddPortMapForm
 import json
 
-def IndexView(request):
-    return render(request, 'index.html')
+
+class IndexView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'index.html')
 
 # 资产列表类视图
 class AssetListView(LoginRequiredMixin, ListView):

@@ -249,6 +249,49 @@
     </div>
 
 
+    <!-- 添加记录时间选择器 -->
+  <script>
+      $('#datetimepicker_start_time').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: moment.locale('zh-cn')
+      });
+
+      $('#datetimepicker_stop_time').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: moment.locale('zh-cn')
+      });
+  </script>
+
+  <!-- 添加映射提交 -->
+  <script>
+      $(function () {
+          // 提交表单
+          $('#js_addPortMapBtn').on('click', function () {
+              $.ajax({
+                  cache: false,
+                  type: "POST",
+                  url: "{% url 'assets:add_port_map' %}",
+                  data: $('#js_addPortMapForm').serialize(),
+                  async: true,
+                  beforeSend: function (xhr, settings) {
+                      // 这里需要csrf_token的值，而不是代码
+                      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                  },
+                  success: function (data) {
+                      if (data.status == 'success') {
+                          window.location.href = "{% url 'assets:port_map_list' %}";
+                          window.alert(data.msg);
+                      } else if (data.status == 'fail') {
+                          window.alert(data.msg);
+                      }
+                  }
+              });
+          });
+      })
+  </script>
+
+
+
     <!-- 修改映射记录 -->
     {% for each in portmap_list %}
 
@@ -489,47 +532,6 @@
 
     {% block footer-js %}
 
-
-        <script>
-            $(function () {
-
-                // 提交  添加端口映射表单
-                $('#js_addPortMapBtn').on('click', function () {
-                    $.ajax({
-                        cache: false,
-                        type: "POST",
-                        url: "{% url 'assets:add_port_map' %}",
-                        data: $('#js_addPortMapForm').serialize(),
-                        async: true,
-                        beforeSend: function (xhr, settings) {
-                            // 这里需要csrf_token的值，而不是代码
-                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                        },
-                        success: function (data) {
-                            if (data.status == 'success') {
-                                window.location.href = "{% url 'assets:port_map_list' %}";
-                                window.alert(data.msg);
-                            } else if (data.status == 'fail') {
-                                window.alert(data.msg);
-                            }
-                        }
-                    });
-                });
-
-            });
-
-
-            $('#datetimepicker_start_time').datetimepicker({
-                format: 'YYYY-MM-DD',
-                locale: moment.locale('zh-cn')
-            });
-
-            $('#datetimepicker_stop_time').datetimepicker({
-                format: 'YYYY-MM-DD',
-                locale: moment.locale('zh-cn')
-            });
-
-        </script>
 
 
     {% endblock %}
