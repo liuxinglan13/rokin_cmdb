@@ -133,16 +133,19 @@
                 <div class="modal-body" style="height: 550px;">
                     <form method="post" class="form-horizontal" id="js_addPortMapForm">
 
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">内网IP</label>
-                                <div class="col-md-8">
-                                    <input type="text" name="in_ip" value="" maxlength="20" class="form-control"
-                                           placeholder="输入服务器内网IP地址"
-                                           required="">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">内网IP</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="in_ip">
+                                             {% for asset in assets %}
+                                                <option value="{{ asset.id }}">{{ asset.network_ip }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
 
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -154,6 +157,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -250,45 +254,45 @@
 
 
     <!-- 添加记录时间选择器 -->
-  <script>
-      $('#datetimepicker_start_time').datetimepicker({
-          format: 'YYYY-MM-DD',
-          locale: moment.locale('zh-cn')
-      });
+    <script>
+        $('#datetimepicker_start_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
 
-      $('#datetimepicker_stop_time').datetimepicker({
-          format: 'YYYY-MM-DD',
-          locale: moment.locale('zh-cn')
-      });
-  </script>
+        $('#datetimepicker_stop_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    </script>
 
-  <!-- 添加映射提交 -->
-  <script>
-      $(function () {
-          // 提交表单
-          $('#js_addPortMapBtn').on('click', function () {
-              $.ajax({
-                  cache: false,
-                  type: "POST",
-                  url: "{% url 'assets:add_port_map' %}",
-                  data: $('#js_addPortMapForm').serialize(),
-                  async: true,
-                  beforeSend: function (xhr, settings) {
-                      // 这里需要csrf_token的值，而不是代码
-                      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                  },
-                  success: function (data) {
-                      if (data.status == 'success') {
-                          window.location.href = "{% url 'assets:port_map_list' %}";
-                          window.alert(data.msg);
-                      } else if (data.status == 'fail') {
-                          window.alert(data.msg);
-                      }
-                  }
-              });
-          });
-      })
-  </script>
+    <!-- 添加映射提交 -->
+    <script>
+        $(function () {
+            // 提交表单
+            $('#js_addPortMapBtn').on('click', function () {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'assets:add_port_map' %}",
+                    data: $('#js_addPortMapForm').serialize(),
+                    async: true,
+                    beforeSend: function (xhr, settings) {
+                        // 这里需要csrf_token的值，而不是代码
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            window.location.href = "{% url 'assets:port_map_list' %}";
+                            window.alert(data.msg);
+                        } else if (data.status == 'fail') {
+                            window.alert(data.msg);
+                        }
+                    }
+                });
+            });
+        })
+    </script>
 
 
 

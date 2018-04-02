@@ -145,9 +145,11 @@ class PortMapListView(ListView):
     template_name = 'assets/portmap-list.html'
 
     def get_context_data(self, **kwargs):
+        assets_list = assets.objects.all()
         context = {
             "asset_active": "active",
             "port_map_list_active": "active",
+            "assets": assets_list
         }
         kwargs.update(context)
         return super(PortMapListView, self).get_context_data(**kwargs)
@@ -169,7 +171,7 @@ class AddPortMapView(LoginRequiredMixin, View):
 
             # 添加新记录
             portmap = PortMap()
-            portmap.in_ip = request.POST.get('in_ip')
+            portmap.in_ip_id = request.POST.get('in_ip')
             portmap.in_port = request.POST.get('in_port')
             portmap.out_ip = request.POST.get('out_ip')
             portmap.out_port = request.POST.get('out_port')
