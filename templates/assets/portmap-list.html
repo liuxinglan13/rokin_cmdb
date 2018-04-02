@@ -84,7 +84,7 @@
                                         <tr class="gradeA" id="{{ row.id }}">
                                             <td><input type="checkbox" value="{{ row.id }}" name="id"></td>
                                             <td class="center"><a
-                                                    href="{{ row.get_absolute_url }}">{{ row.in_ip }}</a>
+                                                    href="{{ row.in_ip.get_absolute_url }}">{{ row.in_ip }}</a>
                                             </td>
                                             <td class="center">{{ row.in_port }}</td>
                                             <td class="center">{{ row.out_ip }}</td>
