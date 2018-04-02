@@ -113,7 +113,7 @@ class data_centers(models.Model):
 ## 端口映射详情表
 ########################################################################################################################
 class PortMap(models.Model):
-    in_ip = models.ForeignKey(assets, on_delete=models.CASCADE, verbose_name='内网IP', related_name='portmaps')
+    in_ip = models.GenericIPAddressField(verbose_name='内网IP')
     in_port = models.SmallIntegerField(verbose_name='内网端口')
     out_ip = models.GenericIPAddressField(verbose_name='外网IP')
     out_port = models.SmallIntegerField(verbose_name='外网端口')

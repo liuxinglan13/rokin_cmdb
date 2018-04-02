@@ -49,7 +49,8 @@
                                 {% csrf_token %}
 
                                 <a class="btn btn-sm btn-default btn-add" data-toggle="modal"
-                                   href="{% url 'assets:asset_add' %}">
+                                   data-target="#AddPortMapModal"
+                                   data-backdrop='static'>
                                     <i class="fa fa-plus"></i> 添加映射
                                 </a>
                                 <a class="btn btn-sm btn-default btn-add asset_all_del" data-toggle="modal">
@@ -116,6 +117,139 @@
     </div>
 
 
+
+    <!-- 添加映射记录 -->
+    <div class="modal fade" id="AddPortMapModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="padding-top: 5%; width: 500px;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #003366; color: white;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">&times;</span>
+                    </button>
+                    <h4 class="modal-title">添加映射</h4>
+                </div>
+                <div class="modal-body" style="height: 550px;">
+                    <form method="post" class="form-horizontal" id="js_addPortMapForm">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">内网IP</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="in_ip" value="" maxlength="20" class="form-control"
+                                           placeholder="输入服务器内网IP地址"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">内网端口</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="in_port" value="" maxlength="20" class="form-control"
+                                           placeholder="输入服务器内网端口"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">外网IP</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="out_ip" value="" maxlength="20" class="form-control"
+                                           placeholder="输入服务器外网IP地址"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">外网端口</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="out_port" value="" maxlength="20" class="form-control"
+                                           placeholder="输入服务器外网端口"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">申请者</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="ask_user" value="" maxlength="20" class="form-control"
+                                           placeholder="输入申请的人"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">用途</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="use_for" value="" maxlength="20" class="form-control"
+                                           placeholder="输入用途"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">开始时间</label>
+                                <div class="col-md-8">
+                                    <div class="input-group date" id='datetimepicker_start_time'>
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                                        <input name="start_time" type="text" class="form-control" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">结束时间</label>
+                                <div class="col-md-8">
+                                    <div class="input-group date" id='datetimepicker_stop_time'>
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                                        <input name="stop_time" type="text" class="form-control" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">备注</label>
+                                <div class="col-md-8">
+                  <textarea class="form-control" name="ps" cols="30" rows="5"
+                            placeholder="输入其它备注信息"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="js_addPortMapBtn"
+                           style="width: 100px;height: 25px;line-height: 25px;text-align: center;background: #003366;border: 0;border-radius: 4px;color: white; margin-right: 15px;"
+                           value="添加">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     {% block footer-js %}
 
 
@@ -155,41 +289,40 @@
 
                 });
 
-
-                // 删除全部  有问题 稍后在弄
-                $(document).on('click', '.asset_all_del', function () {
-
-                    swal({
-
-                        title: "你确定删除",
-                        text: "你将无法恢复",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "确定",
-
-                        closeOnConfirm: false
-                    }, function () {
-                        $.ajax({
-                            url: "{% url 'assets:asset_all_del'%}",
-                            type: 'POST',
-                            data: $('#del_form_asset_all').serialize(),
-                            success: function (data) {
-                                var obj = JSON.parse(data);
-                                if (obj.status) {
-                                    swal({title: "删除", text: "已成功删除", type: "success"}, function () {
-                                        window.location.reload();
-                                    })
-                                } else {
-                                    swal("错误", "删除" + "[ " + obj.error + " ]" + "遇到错误", "error");
-                                }
+                // 提交表单
+                $('#js_addPortMapBtn').on('click', function () {
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "{% url 'assets:add_port_map' %}",
+                        data: $('#js_addPortMapForm').serialize(),
+                        async: true,
+                        beforeSend: function (xhr, settings) {
+                            // 这里需要csrf_token的值，而不是代码
+                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                        },
+                        success: function (data) {
+                            if (data.status == 'success') {
+                                window.location.href = "{% url 'assets:port_map_list' %}";
+                                window.alert(data.msg);
+                            } else if (data.status == 'fail') {
+                                window.alert(data.msg);
                             }
-                        });
-
-
+                        }
                     });
                 });
 
+            });
+
+
+            $('#datetimepicker_start_time').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            });
+
+            $('#datetimepicker_stop_time').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
             });
 
         </script>

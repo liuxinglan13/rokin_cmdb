@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from .models import *
 from django.views.generic import TemplateView, ListView, View, CreateView, UpdateView, DeleteView, DetailView,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .form import AssetForm
+from .form import AssetForm, AddPortMapForm
 import json
 
 def IndexView(request):
@@ -29,12 +29,9 @@ class AssetDetail(DetailView):
     context_object_name = 'assets'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        portmaps = self.object.portmaps.all()
         context = {
             "asset_active": "active",
             "asset_list_active": "active",
-            "portmaps": portmaps
         }
         kwargs.update(context)
         return super(AssetDetail, self).get_context_data(**kwargs)
@@ -177,7 +174,6 @@ class AddPortMapView(LoginRequiredMixin, View):
             portmap.use_for = request.POST.get('use_for')
             portmap.start_time = request.POST.get('start_time')
             portmap.stop_time = request.POST.get('stop_time')
-            portmap.handling_user = request.user
             portmap.ps = request.POST.get('ps')
             portmap.save()
 

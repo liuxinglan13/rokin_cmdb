@@ -21,7 +21,7 @@ urlpatterns = [
     path('port/delete/<int:p_id>/', views.DeletePortMapView.as_view(), name='delete_port'),
 
     # 修改映射记录
-    path('^port/map/change/<int:p_id>/', views.ChangePortMapView.as_view(), name='change_port'),
+    path('port/map/change/<int:p_id>/', views.ChangePortMapView.as_view(), name='change_port'),
 ]
 
 app_name = 'assets'

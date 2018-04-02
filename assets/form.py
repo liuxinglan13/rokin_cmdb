@@ -48,3 +48,12 @@ class AssetForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['city'].queryset = self.instance.country.city_set.order_by('name')
+
+
+########################################################################################################################
+## 添加映射
+########################################################################################################################
+class AddPortMapForm(forms.ModelForm):
+    class Meta:
+        model = PortMap
+        fields = '__all__'
