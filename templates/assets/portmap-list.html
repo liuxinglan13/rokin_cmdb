@@ -133,18 +133,18 @@
                 <div class="modal-body" style="height: 550px;">
                     <form method="post" class="form-horizontal" id="js_addPortMapForm">
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">内网IP</label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" name="in_ip">
-                                             {% for asset in assets %}
-                                                <option value="{{ asset.id }}">{{ asset.network_ip }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">内网IP</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="in_ip">
+                                        {% for asset in assets %}
+                                            <option value="{{ asset.id }}">{{ asset.network_ip }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
+                        </div>
 
 
                         <div class="col-sm-12">
@@ -316,10 +316,11 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">内网IP</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="in_ip" value="{{ each.in_ip }}" maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入服务器内网IP地址"
-                                               required="">
+                                        <select class="form-control" name="in_ip">
+                                            {% for asset in assets %}
+                                                <option value="{{ asset.id }}">{{ asset.network_ip }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                             </div>

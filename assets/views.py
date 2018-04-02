@@ -212,7 +212,7 @@ class ChangePortMapView(LoginRequiredMixin, View):
             old_ports.delete()
             # 添加新的记录
             portmap = PortMap()
-            portmap.in_ip = request.POST.get('in_ip')
+            portmap.in_ip_id = request.POST.get('in_ip')
             portmap.in_port = request.POST.get('in_port')
             portmap.out_ip = request.POST.get('out_ip')
             portmap.out_port = request.POST.get('out_port')
