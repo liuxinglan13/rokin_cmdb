@@ -22,11 +22,7 @@
 
         </div>
     </div>
-
-    <div id="chm">
-        <button type="button">Click me</button>
-    </div>
-
+    
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
@@ -179,158 +175,7 @@
         </div>
     </div>
 
-    {% for server in asset_list %}
-        <div class="modal fade" id="EditHostModal{{ server.id }}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" style="padding-top: 3%; width: 500px;">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #003366; color: white;">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="color: white">&times;</span>
-                        </button>
-                        <h4 class="modal-title">修改主机</h4>
-                    </div>
-                    <div class="modal-body" style="height: 680px;">
 
-                        <form method="post" class="form-horizontal" id="js_editHostForm{{ server.id }}">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">IP地址</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="ip_addr" value="{{ server.network_ip }}" maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入服务器IP地址"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">主机名</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="server_name" value="{{ server.hostname }}"
-                                               maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入服务器主机名"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">主机状态</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="server_status" value="{{ server.assets_status }}"
-                                               maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入主机状态"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">主机类型</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="server_type" value="{{ server.assets_type }}"
-                                               maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入主机类型"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">操作系统</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="system" value="{{ server.system }}" maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入服务器系统版本"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">磁盘（G）</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="disk" value="{{ server.disk }}" maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入纯数字的磁盘大小"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">内存（G）</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="memory" value="{{ server.memory }}" maxlength="20"
-                                               class="form-control"
-                                               placeholder="输入纯数字的内存大小"
-                                               required="">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">备注</label>
-                                    <div class="col-md-8">
-                    <textarea class="form-control" name="ps" cols="30" rows="5"
-                              placeholder="输入服务器配置信息，如：JDK，TOMCAT等">{{ server.ps }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" id="js_editHostBtn{{ server.id }}"
-                               style="width: 100px;height: 25px;line-height: 25px;text-align: center;background: #003366;border: 0;border-radius: 4px;color: white; margin-right: 15px;"
-                               value="保存">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 修改记录提交 -->
-        <script>
-            $(function () {
-                // 提交表单
-                $('#js_editHostBtn{{ server.id }}').on('click', function () {
-                    swal("这是一个信息提示框!");
-                    $.ajax({
-                        cache: false,
-                        type: "POST",
-                        url: "{% url 'assets:asset_update' server.id %}",
-                        data: $('#js_editHostForm{{ server.id }}').serialize(),
-                        async: true,
-                        beforeSend: function (xhr, settings) {
-                            // 这里需要csrf_token的值，而不是代码
-                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                        },
-                        success: function (data) {
-                            if (data.status == 'success') {
-                                window.location.href = "{% url 'assets:assets_list' %}";
-                            } else if (data.status == 'fail') {
-                                window.alert(data.msg);
-                            }
-                        }
-                    });
-                });
-            })
-        </script>
-
-
-    {% endfor %}
 
     {% block footer-js %}
 
@@ -369,47 +214,6 @@
 
                     });
 
-                });
-
-
-                // 删除全部  有问题 稍后在弄
-                $(document).on('click', '.asset_all_del', function () {
-
-                    swal({
-
-                        title: "你确定删除",
-                        text: "你将无法恢复",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "确定",
-
-                        closeOnConfirm: false
-                    }, function () {
-                        $.ajax({
-                            url: "{% url 'assets:asset_all_del'%}",
-                            type: 'POST',
-                            data: $('#del_form_asset_all').serialize(),
-                            success: function (data) {
-                                var obj = JSON.parse(data);
-                                if (obj.status) {
-                                    swal({title: "删除", text: "已成功删除", type: "success"}, function () {
-                                        window.location.reload();
-                                    })
-                                } else {
-                                    swal("错误", "删除" + "[ " + obj.error + " ]" + "遇到错误", "error");
-                                }
-                            }
-                        });
-
-
-                    });
-                });
-
-                // 隐藏显示按钮
-                $('#chm').click(function () {
-                    $(this).hide();
-                    swal("这是一个信息提示框!");
                 });
 
             });
