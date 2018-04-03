@@ -4,6 +4,8 @@ from django.views.generic import TemplateView, ListView, View, CreateView, Updat
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .form import AssetForm, AddPortMapForm
 import json
+from django.conf import settings
+from django.db.models import Q
 
 
 class IndexView(LoginRequiredMixin, View):
@@ -14,7 +16,10 @@ class IndexView(LoginRequiredMixin, View):
 class AssetListView(LoginRequiredMixin, ListView):
     model = assets
     context_object_name = 'asset_list'
+    paginate_by = settings.DISPLAY_PER_PAGE
     template_name = 'assets/assets.html'
+    queryset = assets.objects.all()
+    ordering = ('id',)
 
     def get_context_data(self, **kwargs):
         context = {
@@ -23,6 +28,17 @@ class AssetListView(LoginRequiredMixin, ListView):
         }
         kwargs.update(context)
         return super(AssetListView, self).get_context_data(**kwargs)
+
+    ### 查询
+    def get_queryset(self,*args,**kwargs):
+        self.queryset = super().get_queryset()
+        if  self.request.GET.get('name'):
+            query = self.request.GET.get('name',None)
+            # 主机名和IP地址的模糊查询
+            queryset = self.queryset.filter(Q(network_ip__contains=query)| Q(hostname__contains=query)).order_by('id')
+        else:
+            queryset = super().get_queryset()
+        return queryset
 
 # 资产详情页
 class AssetDetail(DetailView):

@@ -135,3 +135,6 @@ LOGOUT_REDIRECT_URL = 'assets:index'
 LOGIN_REDIRECT_URL = 'assets:index'
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+# 分页 每页显示的行数
+DISPLAY_PER_PAGE =  25
