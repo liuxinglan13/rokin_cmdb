@@ -37,7 +37,7 @@ class assets(models.Model):
     # 资产名称
     hostname = models.CharField(max_length=64, verbose_name='资产名称', null=True, blank=True)
     # IP地址
-    network_ip = models.GenericIPAddressField(unique=True, verbose_name='IP地址')
+    network_ip = models.GenericIPAddressField(verbose_name='IP地址')
     # 管理IP
     manage_ip = models.GenericIPAddressField(verbose_name='管理IP', null=True,blank=True)
     # 资产型号 硬件型号

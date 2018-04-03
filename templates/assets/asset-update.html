@@ -106,11 +106,17 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">主机状态</label>
                                             <div class="col-md-8">
-                                                <input type="text" name="assets_status"
-                                                       value="{{ host.assets_status }}" maxlength="20"
-                                                       class="form-control"
-                                                       placeholder="输入主机状态"
-                                                       required="">
+                                                <select name="assets_status" class="selectpicker form-control"
+                                                        >
+                                                    <option value="runing"
+                                                            {% ifequal host.assets_status "runing" %}selected{% endifequal %}>
+                                                        在用
+                                                    </option>
+                                                    <option value="stop"
+                                                            {% ifequal host.assets_status "stop" %}selected{% endifequal %}>
+                                                        停用
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
